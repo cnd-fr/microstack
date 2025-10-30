@@ -1,21 +1,21 @@
 package fr.codeanddata.microstack.web.it;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.is;
-
-import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class MicrostackWebResourceTest {
 
-    @Test
-    public void testHelloEndpoint() {
-        given()
-                .when().get("/microstack-web")
-                .then()
-                .statusCode(200)
-                .body(is("Hello microstack-web"));
-    }
+  @Inject
+  BeanDefRegistry registry;
+
+  @Test
+  public void testHelloEndpoint() {
+    Assertions.assertNotNull(registry);
+    Assertions.assertNotNull(registry.get("hello 1"));
+    Assertions.assertNotNull(registry.get("hello 2"));
+  }
 }

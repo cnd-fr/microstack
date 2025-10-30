@@ -10,6 +10,7 @@
   <modules>
     <module>./ext/microstack-core</module>
     <module>./ext/microstack-web</module>
+    <module>./ext/microstack-blocks</module>
   </modules>
 
   <properties>
@@ -25,6 +26,7 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.5.3</surefire-plugin.version>
     <microstack.version>1.0-SNAPSHOT</microstack.version>
+    <lombok.version>1.18.40</lombok.version>
   </properties>
 
   <dependencyManagement>
@@ -56,6 +58,23 @@
         <groupId>fr.codeanddata.microstack</groupId>
         <artifactId>microstack-web-deployment</artifactId>
         <version>${microstack.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>fr.codeanddata.microstack</groupId>
+        <artifactId>microstack-blocks</artifactId>
+        <version>${microstack.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>fr.codeanddata.microstack</groupId>
+        <artifactId>microstack-blocks-deployment</artifactId>
+        <version>${microstack.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -94,10 +113,39 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>${compiler-plugin.version}</version>
           <configuration>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+              </path>
+              <path>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-extension-processor</artifactId>
+              </path>
+            </annotationProcessorPaths>
+            <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>
             <parameters>true</parameters>
           </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
+
+  <repositories>
+    <repository>
+      <id>gitea</id>
+      <url>https://gitea.tech.codeanddata.fr/api/packages/${env.MAVEN_REPO_OWNER}/maven</url>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>gitea</id>
+      <url>https://gitea.tech.codeanddata.fr/api/packages/${env.MAVEN_REPO_OWNER}/maven</url>
+    </repository>
+    <snapshotRepository>
+      <id>gitea</id>
+      <url>https://gitea.tech.codeanddata.fr/api/packages/${env.MAVEN_REPO_OWNER}/maven</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
