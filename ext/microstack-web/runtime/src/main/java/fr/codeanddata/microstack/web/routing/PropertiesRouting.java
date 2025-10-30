@@ -6,8 +6,8 @@ import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.Router;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
-import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.context.ThreadContext;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +17,9 @@ import java.util.Map;
 public class PropertiesRouting {
   @Inject
   RoutingConfig config;
+
+  @Inject
+  ThreadContext threadContext;
 
   @Inject
   @All
@@ -32,17 +35,28 @@ public class PropertiesRouting {
     });
 
     final Map<String, RoutingConfig.RouteConfig> routeConfig = config.routing();
-    for (final String handlerName: routeConfig.keySet()) {
+    for (final String handlerName : routeConfig.keySet()) {
       if (handlersMap.containsKey(handlerName)) {
         final RouteHandler handler = handlersMap.get(handlerName);
         final RoutingConfig.RouteConfig route = routeConfig.get(handlerName);
         final List<String> methods = route.methods().orElse(List.of("GET"));
+        final Map<String, String> params = route.params();
         methods.forEach(method -> {
           final HttpMethod httpMethod = HttpMethod.valueOf(method);
           if (route.path().isPresent()) {
-            router.route(httpMethod, route.path().get()).handler(handler::handle);
+            router.route(httpMethod, route.path().get()).handler(context -> {
+              handler.handle(context, params)
+                .emitOn(threadContext.currentContextExecutor())
+                .subscribe().with(x -> {
+                });
+            });
           } else if (route.regex().isPresent()) {
-            router.routeWithRegex(httpMethod, route.regex().get()).handler(handler::handle);
+            router.routeWithRegex(httpMethod, route.regex().get()).handler(context -> {
+              handler.handle(context, params)
+                .emitOn(threadContext.currentContextExecutor())
+                .subscribe().with(x -> {
+                });
+            });
           }
         });
       }

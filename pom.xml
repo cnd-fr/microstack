@@ -134,18 +134,18 @@
 
   <repositories>
     <repository>
-      <id>gitea</id>
-      <url>https://gitea.tech.codeanddata.fr/api/packages/${env.MAVEN_REPO_OWNER}/maven</url>
+      <id>git</id>
+      <url>${env.MAVEN_REPO_URL}</url>
     </repository>
   </repositories>
   <distributionManagement>
     <repository>
-      <id>gitea</id>
-      <url>https://gitea.tech.codeanddata.fr/api/packages/${env.MAVEN_REPO_OWNER}/maven</url>
+      <id>git</id>
+      <url>${env.MAVEN_REPO_URL}</url>
     </repository>
     <snapshotRepository>
-      <id>gitea</id>
-      <url>https://gitea.tech.codeanddata.fr/api/packages/${env.MAVEN_REPO_OWNER}/maven</url>
+      <id>git</id>
+      <url>${env.MAVEN_REPO_URL}</url>
     </snapshotRepository>
   </distributionManagement>
 </project>

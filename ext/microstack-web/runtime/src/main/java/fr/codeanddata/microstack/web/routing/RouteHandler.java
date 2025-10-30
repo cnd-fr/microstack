@@ -1,7 +1,10 @@
 package fr.codeanddata.microstack.web.routing;
 
+import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
 
+import java.util.Map;
+
 public interface RouteHandler {
-  void handle(RoutingContext routingContext);
+  Uni<Void> handle(RoutingContext routingContext, Map<String, String> params);
 }

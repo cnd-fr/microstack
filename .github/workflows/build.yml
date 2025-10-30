@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MAVEN_ACCESS_TOKEN: ${{ secrets.CI_TOKEN }}
-      MAVEN_REPO_OWNER: ${{ gitea.actor }}
+      MAVEN_REPO_URL: https://maven.pkg.github.com/cnd-fr/microstack
     steps:
       - name: Check out latest repository code
         uses: actions/checkout@v4

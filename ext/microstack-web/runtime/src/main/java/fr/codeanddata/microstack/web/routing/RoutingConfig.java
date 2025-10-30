@@ -1,49 +1,53 @@
 package fr.codeanddata.microstack.web.routing;
 
 import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 import io.smallrye.config.WithParentName;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * C'est la javadockbleu
- */
 @ConfigMapping(prefix = "micro.web.routing")
 public interface RoutingConfig {
 
   /**
-   * Voila une jdoque
+   * todo
    *
-   * @return retour de la fn
+   * @return todo
    */
   @WithParentName
   Map<String, RouteConfig> routing();
 
-  /**
-   * C'est la conf
-   */
+
   interface RouteConfig {
+
     /**
-     * De la javadoc
+     * todo
      *
-     * @return pas obligatoire
+     * @return todo
      */
     Optional<String> path();
 
     /**
-     * Jdoc aussi
+     * todo
      *
-     * @return oui par la
+     * @return todo
      */
     Optional<String> regex();
 
     /**
-     * Un dernier
+     * todo
      *
-     * @return dernier retour
+     * @return todo
      */
     Optional<List<String>> methods();
+
+    /**
+     * Todo
+     *
+     * @return todo
+     */
+    Map<String, String> params();
   }
 }

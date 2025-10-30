@@ -4,7 +4,7 @@
                               https://maven.apache.org/xsd/settings-1.0.0.xsd">
   <servers>
     <server>
-      <id>gitea</id>
+      <id>git</id>
       <configuration>
         <httpHeaders>
           <property>
