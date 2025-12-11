@@ -12,7 +12,7 @@ public abstract class QuteViewComponent implements ViewComponent {
   protected abstract Template getTemplate();
 
   @Override
-  public Uni<String> render(Object context, Map<String, Collection<ViewFragment>> slots) {
+  public Uni<String> render(Map<String, Object> context, Map<String, Collection<ViewFragment>> slots) {
     return getTemplate().data(context).setAttribute("__slots", slots).createUni();
   }
 }

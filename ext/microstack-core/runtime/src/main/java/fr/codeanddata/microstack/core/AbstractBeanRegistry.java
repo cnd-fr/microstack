@@ -6,7 +6,7 @@ import jakarta.enterprise.event.Observes;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AbstractBeanRegistry<T> implements BeanRegistry<T> {
+public abstract class AbstractBeanRegistry<T> implements BeanRegistry<T> {
 
   Map<String, T> components = new HashMap<>();
 

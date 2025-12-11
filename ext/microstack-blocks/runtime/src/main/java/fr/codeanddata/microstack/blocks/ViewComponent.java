@@ -7,5 +7,5 @@ import java.util.Collection;
 import java.util.Map;
 
 public interface ViewComponent {
-    Uni<String> render(Object context, Map<String, Collection<ViewFragment>> slots);
+    Uni<String> render(Map<String, Object> context, Map<String, Collection<ViewFragment>> slots);
 }
