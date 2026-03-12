@@ -13,6 +13,6 @@ import java.util.Map;
 @NoArgsConstructor
 public class ViewFragment {
     ViewComponent component;
-    Map<String, Object> context;
+    Object context;
     Map<String, Collection<ViewFragment>> slots;
 }
